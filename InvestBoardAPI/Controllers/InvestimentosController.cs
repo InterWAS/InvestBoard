@@ -115,6 +115,11 @@ namespace InvestBoardAPI.Controllers
             }
 
             // Motor básico de recomendação de risco conforme movimentação do cliente
+            // TODO: Melhorar motor de recomendação de risco 
+            // TODO: Incluir na lógica quantidade de produtos diferentes que o cliente possui e seus volumes
+            // TODO: Incluir na lógica flutuação do risco médio do cliente
+            // TODO: Colocar em classe separada
+
             var investimentos = await Context.Investimentos
                 .Where(i => i.ClienteId == Investimento.ClienteId)
                 .GroupBy(i => i.Produto.Risco <= 1.5M ? "Baixo" : i.Produto.Risco <= 3.0M ? "Médio" : "Alto")
@@ -134,14 +139,42 @@ namespace InvestBoardAPI.Controllers
             {
                 if(cliente.RiscoMaximo <= 1.5M)
                 {
-                    var investido = ((riscoMedio?.TotalInvestido ?? 0.0M) + (riscoAlto?.TotalInvestido ?? 0.0M)) / (riscoBaixo?.TotalInvestido ?? 1M);
-                    var movimento = ((riscoMedio?.Movimentacoes ?? 0) + (riscoAlto?.Movimentacoes ?? 0)) / (riscoBaixo?.Movimentacoes ?? 1);
-                    cliente.RiscoMaximo += (investido > 1 ? 0.05M : 0.0M) + (movimento > 1 ? 0.05M : 0.0M);
+                    var investido = ((riscoMedio?.TotalInvestido ?? 0.0M) + ((riscoAlto?.TotalInvestido ?? 0.0M)*2)) / (riscoBaixo?.TotalInvestido ?? 1M);
+                    var movimento = ((riscoMedio?.Movimentacoes ?? 0) + ((riscoAlto?.Movimentacoes ?? 0))*2) / (riscoBaixo?.Movimentacoes ?? 1);
+                    var acrescimo = (investido > 1 ? 0.05M : 0.0M) + (movimento > 1 ? 0.05M : 0.0M);
+                    if (cliente.RiscoMaximo + acrescimo > 5.0M)
+                    {
+                        cliente.RiscoMaximo = 5.0M;
+                    }
+                    else
+                    {
+                        cliente.RiscoMaximo += acrescimo;
+                    }
+                }
+            }
+            else
+            {
+                if (produto.Risco < cliente.RiscoMaximo)
+                {
+                    if (cliente.RiscoMaximo > 3.0M)
+                    {
+                        var investido = ((riscoMedio?.TotalInvestido ?? 0.0M) + ((riscoBaixo?.TotalInvestido ?? 0.0M)*2)) / (riscoAlto?.TotalInvestido ?? 1M);
+                        var movimento = ((riscoMedio?.Movimentacoes ?? 0) + ((riscoBaixo?.Movimentacoes ?? 0)*2)) / (riscoAlto?.Movimentacoes ?? 1);
+                        var decrescimo = (investido > 1 ? 0.05M : 0.0M) + (movimento > 1 ? 0.05M : 0.0M);
+                        if (cliente.RiscoMaximo - decrescimo < 1.5M)
+                        {
+                            cliente.RiscoMaximo = 1.5M;
+                        }
+                        else
+                        {
+                            cliente.RiscoMaximo -= decrescimo;
+                        }
+                    }
                 }
             }
 
             var novoInvestimento = await Context.Investimentos
-                .AddAsync(Investimento);
+                    .AddAsync(Investimento);
 
             try
             {
