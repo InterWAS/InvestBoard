@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="InvestBoardAPI/InvestBoardAPI.csproj" />
+  <Project Path="InvestBoardAuthTest/InvestBoardAuthTest.csproj" />
+  <Project Path="InvestBoardTest/InvestBoardTest.csproj" />
+</Solution>

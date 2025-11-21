@@ -1,0 +1,242 @@
+{
+	"info": {
+		"_postman_id": "58011e51-5829-413d-a52f-e73091b8d1b8",
+		"name": "InvestBoard",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20400212"
+	},
+	"item": [
+		{
+			"name": "Produtos",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Telemetria",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/Telemetria",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"Telemetria"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Perfis",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/Perfil",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"Perfil"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Perfil",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Perfil",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/Perfil?ClienteId=1&PerfilId=1",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"Perfil"
+					],
+					"query": [
+						{
+							"key": "ClienteId",
+							"value": "1"
+						},
+						{
+							"key": "PerfilId",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Perfil",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/Perfil?ClienteId=1&PerfilId=1",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"Perfil"
+					],
+					"query": [
+						{
+							"key": "ClienteId",
+							"value": "1"
+						},
+						{
+							"key": "PerfilId",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Produtos Recomendados",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Simulações",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Simulações Produtos Por Dia",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Investimentos",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Investimento",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Investimento",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"ClienteId\": 1, \"ProdutoId\": 1, \"Valor\": 1000.00, \"Rentabilidade\": 12.35, \"Data\": \"2025-11-20\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/investimentos",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"investimentos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Simular Investimento",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"ClienteId\": 1, \"Valor\": 1000, \"PrazoMeses\": 12, \"TipoProduto\": \"CDB\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/simular-investimento",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"simular-investimento"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Simular Investimento Produto",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/simular-investimento/produto",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"simular-investimento",
+						"produto"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "OpenAPI",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "",
+			"type": "default"
+		}
+	]
+}
