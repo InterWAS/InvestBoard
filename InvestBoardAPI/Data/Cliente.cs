@@ -27,5 +27,14 @@ namespace InvestBoardAPI.Data
         /// </summary>
         public virtual Perfil? Perfil { get; set; }
 
+        /// <summary>
+        /// Nível máximo de risco permitido
+        /// </summary>
+        /// <remarks>
+        /// Valores válidos entre 0 to 5. Valores fora desse intervalo resultam em erro de validação
+        /// </remarks>
+        [Display(Name = "Risco Máximo")]
+        [Range(0, 5)]
+        public decimal RiscoMaximo { get; set; }
     }
 }

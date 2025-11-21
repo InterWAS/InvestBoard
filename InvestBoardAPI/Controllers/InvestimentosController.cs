@@ -109,9 +109,35 @@ namespace InvestBoardAPI.Controllers
             }
 
             var produto = await Context.Produtos.FindAsync(Investimento.ProdutoId);
-            if (cliente == null)
+            if (produto == null)
             {
                 return NotFound("Produto não encontrado.");
+            }
+
+            // Motor básico de recomendação de risco conforme movimentação do cliente
+            var investimentos = await Context.Investimentos
+                .Where(i => i.ClienteId == Investimento.ClienteId)
+                .GroupBy(i => i.Produto.Risco <= 1.5M ? "Baixo" : i.Produto.Risco <= 3.0M ? "Médio" : "Alto")
+                .Select(g => new
+                {
+                    Risco = g.Key,
+                    TotalInvestido = g.Sum(i => i.Valor),
+                    Movimentacoes = g.Count()
+                })
+                .ToListAsync();
+
+            var riscoBaixo = investimentos.FirstOrDefault(i => i.Risco == "Baixo");
+            var riscoMedio = investimentos.FirstOrDefault(i => i.Risco == "Médio");
+            var riscoAlto = investimentos.FirstOrDefault(i => i.Risco == "Alto");
+
+            if (produto.Risco > cliente.RiscoMaximo)
+            {
+                if(cliente.RiscoMaximo <= 1.5M)
+                {
+                    var investido = ((riscoMedio?.TotalInvestido ?? 0.0M) + (riscoAlto?.TotalInvestido ?? 0.0M)) / (riscoBaixo?.TotalInvestido ?? 1M);
+                    var movimento = ((riscoMedio?.Movimentacoes ?? 0) + (riscoAlto?.Movimentacoes ?? 0)) / (riscoBaixo?.Movimentacoes ?? 1);
+                    cliente.RiscoMaximo += (investido > 1 ? 0.05M : 0.0M) + (movimento > 1 ? 0.05M : 0.0M);
+                }
             }
 
             var novoInvestimento = await Context.Investimentos

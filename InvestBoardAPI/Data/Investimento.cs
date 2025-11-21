@@ -2,6 +2,13 @@
 
 namespace InvestBoardAPI.Data
 {
+    /// <summary>
+    /// Representa um investimento realizado por um cliente, incluindo detalhes sobre o cliente, o produto associado e os valores do investimento.
+    /// </summary>
+    /// <remarks>
+    /// A classe Investimento engloba informações sobre uma única transação de investimento, vinculando o cliente e o produto envolvido, 
+    /// bem como detalhes financeiros e de data. Esse tipo de dado é normalmente usado para rastrear e gerenciar registros de investimentos em aplicativos financeiros.
+    /// </remarks>
     public class Investimento
     {
 

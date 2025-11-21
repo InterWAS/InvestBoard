@@ -45,7 +45,7 @@ namespace InvestBoardAPI.Controllers
                     cliente => new ClientePerfil(
                         ClienteId: cliente.ClienteId,
                         Perfil: (cliente.Perfil == null ? null : cliente.Perfil.Nome),
-                        Pontuacao: (cliente.Perfil == null ? null : cliente.Perfil.RiscoMaximo),
+                        Pontuacao: cliente.RiscoMaximo,
                         Descricao: (cliente.Perfil == null ? null : cliente.Perfil.Descricao)))
                 .ToListAsync();
         }
@@ -82,7 +82,7 @@ namespace InvestBoardAPI.Controllers
             return new ClientePerfil(
                 ClienteId: cliente.ClienteId,
                 Perfil: (cliente.Perfil?.Nome),
-                Pontuacao: (cliente.Perfil?.RiscoMaximo),
+                Pontuacao: (cliente.RiscoMaximo),
                 Descricao: (cliente.Perfil?.Descricao));
         }
 
@@ -139,7 +139,8 @@ namespace InvestBoardAPI.Controllers
                 .AddAsync(
                     new Cliente() {
                         ClienteId = ClienteId,
-                        PerfilId = PerfilId });
+                        PerfilId = PerfilId, 
+                        RiscoMaximo = perfil.RiscoMaximo });
 
             try
             {
@@ -166,7 +167,7 @@ namespace InvestBoardAPI.Controllers
                 new ClientePerfil(
                     ClienteId: ClienteId,
                     Perfil: perfil.Nome,
-                    Pontuacao: perfil.RiscoMaximo,
+                    Pontuacao: novoCliente.Entity.RiscoMaximo,
                     Descricao: perfil.Descricao));
         }
 
@@ -227,6 +228,7 @@ namespace InvestBoardAPI.Controllers
             }
 
             cliente.PerfilId = PerfilId;
+            cliente.RiscoMaximo = perfil.RiscoMaximo;
             try
             {
                 await Context.SaveChangesAsync();
@@ -249,7 +251,7 @@ namespace InvestBoardAPI.Controllers
             return new ClientePerfil(
                 ClienteId: cliente.ClienteId,
                 Perfil: perfil.Nome,
-                Pontuacao: perfil.RiscoMaximo,
+                Pontuacao: cliente.RiscoMaximo,
                 Descricao: perfil.Descricao);
         }
     }

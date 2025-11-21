@@ -1,5 +1,16 @@
 ﻿namespace InvestBoardAPI.Utils
 {
+    /// <summary>
+    /// Fornece métodos de extensão para realizar cálculos financeiros comuns com valores decimais, como conversões percentuais, 
+    /// arredondamento e cálculos de rentabilidade efetiva.
+    /// </summary>
+    /// <remarks>
+    /// Esta classe estática contém métodos de extensão que simplificam operações financeiras envolvendo números decimais. 
+    /// Os métodos incluem a conversão de valores para e de porcentagens, arredondamento para duas casas decimais, 
+    /// cálculo de taxas mensais a partir de taxas anuais e determinação da rentabilidade efetiva. 
+    /// Todos os métodos são projetados para serem usados ​​como extensões do tipo decimal, 
+    /// permitindo um código fluente e legível em contextos financeiros.
+    /// </remarks>
     public static class Calculos
     {
 

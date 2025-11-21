@@ -6,7 +6,8 @@ namespace InvestBoardAPI.Data
     /// Representa um perfil de cliente com identificação, nome e nível máximo de risco permitido
     /// </summary>
     /// <remarks>
-    /// Classe para definir e gerenciar informações de perfil, incluindo restrições de níveis de risco. O nível máximo de risco deve estar dentro do intervalo válido para evitar erros
+    /// Classe para definir e gerenciar informações de perfil, incluindo restrições de níveis de risco. 
+    /// O nível máximo de risco deve estar dentro do intervalo válido para evitar erros
     /// </remarks>
     public class Perfil
     {
