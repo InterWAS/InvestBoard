@@ -26,8 +26,7 @@ API que analisa o comportamento financeiro do cliente e ajusta automaticamente s
 - Execução via container
 - Testes unitários e integração
 
-## Modelos de Envelopes JSON
-
-
 ## Instalação
+
+- Requer .NET 10
 
